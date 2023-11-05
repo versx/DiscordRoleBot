@@ -1,0 +1,25 @@
+{
+  "logs": {
+    "level": "info",
+    "colors": {
+      "text": "#ffffff",
+      "variable": "#ff624d",
+      "date": "#4287f5",
+      "warn": "#ffff00",
+      "error": "#ff0000"
+    }
+  },
+  "prefix": "!",
+  "status": "Managing access...",
+  "token": "<DISCORD_BOT_TOKEN>",
+  "servers": {
+    "<DISCORD_GUILD1_ID>": {
+      "name": "<DESCRIPTIVE_NAME>",
+      "requiresUpgradeRole": true,
+      "upgradeRoleNames": [],
+      "roleNames": [],
+      "allowFreeRole": false,
+      "freeRoleName": "Free"
+    }
+  }
+}
