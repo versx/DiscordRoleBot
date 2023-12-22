@@ -17,6 +17,16 @@ declare module 'discord.js' {
   };
 };
 
+export interface SlashCommand {
+  command: SlashCommandBuilder,
+  execute: (interaction: ChatInputCommandInteraction) => void,
+  autocomplete?: (interaction: AutocompleteInteraction) => void,
+  modal?: (interaction: ModalSubmitInteraction<CacheType>) => void,
+  selectMenu?: (interaction: StringSelectMenuInteraction) => void,
+  onClick?: (interaction: Message) => void,
+  cooldown?: number, // in seconds
+};
+
 export interface Command {
   name: string,
   execute: (message: Message, args: Array<string>) => void,
@@ -41,6 +51,7 @@ export type DiscordRoleBotConfig = {
     [guildId: Snowflake]: DiscordGuildConfig;
   };
   status?: string | null;
+  clientId: string;
   token: string;
 };
 
@@ -57,6 +68,14 @@ export type LogColorsConfig = {
   //[type: ColorType]: string;
   [type: string]: string;
 };
+
+export type DiscordRoleResults = {
+  assigned: string[];
+  unassigned: string[];
+  failed: string[];
+};
+
+export type DiscordRoleAssignmentType = 'assign' | 'unassign' | 'toggle';
 
 export type ColorType = 'text' | 'variable' | 'warn' | 'error' | 'date';
 

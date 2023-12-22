@@ -1,5 +1,6 @@
 import chalk from 'chalk';
 import {
+  Colors,
   EmbedBuilder,
   Guild, GuildMember,
   Message,
@@ -7,8 +8,17 @@ import {
   TextChannel,
 } from 'discord.js';
 
+import { RedCrossIcon } from '../consts';
 import { ColorType, DiscordRoleBotConfig } from '../types';
 const config: DiscordRoleBotConfig = require('../config.json');
+
+export const substr = (text: string, maxChars: number = 30, addEllipsis: boolean = true) => {
+  if (text.length <= maxChars) {
+    return text;
+  }
+  const result = text.substring(0, Math.min(text.length, maxChars));
+  return addEllipsis ? result + '...' : result;
+};
 
 /**
  * 
@@ -114,5 +124,31 @@ export const hasRolePermissions = (member: GuildMember, upgradeRoleNames: string
       return true;
     }
   }
+  return false;
+};
+
+export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+export const replyEmbed = (text: string, color: number = Colors.Blurple, ephemeral: boolean = false) => ({
+  ephemeral,
+  embeds: [
+    new EmbedBuilder()
+      .setDescription(text)
+      .setColor(color),
+  ],
+});
+
+export const isDmSupported = async (interaction: any) => {
+  const result = interaction.guild?.name;
+  if (result) {
+    return true;
+  }
+
+  await interaction.reply(
+    replyEmbed(
+      `${RedCrossIcon} Direct messages are not supported for this command.`,
+      Colors.Red,
+    ),
+  );
   return false;
 };
